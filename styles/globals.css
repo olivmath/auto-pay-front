@@ -34,6 +34,28 @@
     background-color: #46494a;
 }
 
+.logout {
+    border: none;
+    border-color: #ba4c33;
+    padding: 1% 5%;
+    background-color: #FF6745;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.logout:hover {
+    background-color: #36393c;
+    border: none;
+    border-color: #3aa1ff;
+}
+
+.logout:active {
+    background-color: #46494a;
+}
+
 .store-front {
     display: flex;
     align-items: center;

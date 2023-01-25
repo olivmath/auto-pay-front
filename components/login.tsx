@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router'
 import React, { useState, useEffect } from 'react'
 
 declare global {
@@ -6,26 +7,37 @@ declare global {
     }
 }
 
-function addrFormatter(s: string, size = 3) {
-    var first = s.slice(0, size + 1)
-    var last = s.slice(-size)
-    return `${first}_${last}`
-}
-
 export default function Login() {
-    const [wallet, setWallet] = useState('Login')
+    const router = useRouter()
+    const [wallet, setWallet] = useState({
+        message: 'Login',
+        connected: false,
+        address: '',
+        className: 'login',
+    })
+
     const connectWallet = async () => {
-        const listUserAddress = await window.ethereum.request({
-            method: 'eth_requestAccounts',
-        })
-        console.log(listUserAddress)
-        setWallet(addrFormatter(listUserAddress[0]))
-        // setWallet("Logout")
+        if (wallet.connected === false) {
+            const listAddress = await window.ethereum.request({
+                method: 'eth_requestAccounts',
+                params: [{ eth_accounts: {} }],
+            })
+            alert(`✅ connected: ${listAddress[0]}`)
+            setWallet({
+                message: 'Logout',
+                connected: true,
+                address: listAddress[0],
+                className: 'logout',
+            })
+            router.push('/company')
+        } else {
+            window.location.reload()
+        }
     }
 
     return (
-        <button className="login" onClick={connectWallet}>
-            {wallet}
+        <button className={wallet.className} onClick={connectWallet}>
+            {wallet.message}
         </button>
     )
 }
