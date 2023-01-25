@@ -29,7 +29,7 @@ export default function Login() {
                 address: listAddress[0],
                 className: 'logout',
             })
-            router.push('/company')
+            // router.push('/company')
         } else {
             window.location.reload()
         }
