@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import React, { useState, useEffect } from 'react'
+import React, { useState, createContext } from 'react'
 
 declare global {
     interface Window {
@@ -7,7 +7,9 @@ declare global {
     }
 }
 
-export default function Login() {
+export const LoginContext = createContext({})
+
+export function Login() {
     const router = useRouter()
     const [wallet, setWallet] = useState({
         message: 'Login',
@@ -29,15 +31,17 @@ export default function Login() {
                 address: listAddress[0],
                 className: 'logout',
             })
-            // router.push('/company')
+            router.push('/company')
         } else {
-            window.location.reload()
+            router.reload()
         }
     }
 
     return (
-        <button className={wallet.className} onClick={connectWallet}>
-            {wallet.message}
-        </button>
+        <LoginContext.Provider value={wallet}>
+            <button className={wallet.className} onClick={connectWallet}>
+                {wallet.message}
+            </button>
+        </LoginContext.Provider>
     )
 }
