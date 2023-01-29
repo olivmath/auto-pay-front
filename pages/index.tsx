@@ -1,5 +1,4 @@
-import Header from '../components/header'
-import StoreFront from '../components/storeFront'
+import StoreFront from '../components/StoreFront'
 
 export default function Home() {
     return (
